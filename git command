@@ -19,20 +19,3 @@ Rename build_old finally live build add
 
 
 
-
-exports.getContest = (req, res) => {
-  var contestId = req.body.contestId;
-  USERDETAILS.findOne({ contestId: contestId }, function (err, data) {
-    if (err) {
-      console.log("error: ", err);
-    } else if (data == null) {
-      USERDETAILS.find({ contestId: { $lt: contestId } })
-        .sort([["contestId", -1]]).limit(1)
-        .exec(function (err, datas) {
-          res.json({ status: true, message: "show", data: datas });
-        });
-    } else if (data != null) {
-      res.json({ status: true, message: "success", data: data });
-    }
-  });
-};
