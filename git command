@@ -18,4 +18,37 @@ Rename build_old finally live build add
 8.git push 
 
 
+exports.getContest = (req, res) => {
+  var contestId = req.body.contestId;
+  USERDETAILS.findOne({ contestId: contestId }, function (err, data) {
+    if (err) {
+      console.log("error: ", err);
+    } else if (data == null) {
+      USERDETAILS.find({ contestId: { $gt: contestId } })
+        .sort([["contestId", -1]])
+        .limit(1)
+        .exec(function (err, datass) {
+          console.log("datass.length: ", datass.length);
+          if (err) throw err;
+          else if (datass.length > 0) {  
+            USERDETAILS.find({ contestId: { $lt: contestId } })
+              .sort([["contestId", -1]])
+              .limit(1)
+              .exec(function (err, datas) {
+                res.json({ status: true,isstatus:true ,message: "show", data: datas });
+              });  
+          } else if(datass.length===0) {
+            USERDETAILS.find({ contestId: { $lt: contestId } })
+            .sort([["contestId", -1]])
+            .limit(1)
+            .exec(function (err, datasd) {
+              res.json({ status: false,isstatus:false ,message: "not valid", data: datasd });
+            });  
 
+          }
+        });
+    } else if (data != null) {
+      res.json({ status: true, message: "success", data: data });
+    }
+  });
+};
