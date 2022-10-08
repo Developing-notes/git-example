@@ -17,6 +17,11 @@ Rename build_old finally live build add
 7.git pull
 8.git push 
 
+git working flow
+----------------
+1.git if your edit commit and pull (or) not edit directly pull
+2.if any automerge accept current change or incoming change select again git add git commit pull and push
+
 
 124 last so empty array return length calculate 0  
 empty array base button hide [hidden]=isstatus==0 
@@ -27,3 +32,6 @@ not data false
 
 <div ng-if="$ctrl.length == 0" ? true : false></div>
 "0" == false 
+
+
+
